@@ -712,7 +712,7 @@ void abupcv(void)
 
 MSH_CMD_EXPORT(abupcv, a tcp client sample);
 
-abup_int abup_process_init(void)
+abup_int abup_init_update_result(void)
 {
     ABUP_INFO(ABUP_TAG,"###############################\r\n");
     ABUP_INFO(ABUP_TAG,"   CURRENT APP VERSION: V%s\r\n",abup_get_firmware_version());
@@ -721,7 +721,9 @@ abup_int abup_process_init(void)
 //    ABUP_INFO(ABUP_TAG,"abup_task_buf:0x%x\r\n",testdata2[1]);
 
     abup_update_struct* abup_update = abup_hal_get_update();
-    if((abup_update->update_result == ABUP_UPDATE_SUCCESS)||(abup_update->update_result == ABUP_UPDATE_FAIL))
+    if((abup_update->update_result == ABUP_UPDATE_SUCCESS)
+			||(abup_update->update_result == ABUP_UPDATE_AUTH_FAIL)
+			||(abup_update->update_result == ABUP_UPDATE_FAIL))
     {   //检测是否需要上报升级结果
         AbupProgress(STATE_RU);
     }
