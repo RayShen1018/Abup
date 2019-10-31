@@ -14,11 +14,17 @@
 
 //0是lusun算法，1是wosun算法
 #ifndef ABUP_FOTA_ALGORITHM
-#define ABUP_FOTA_ALGORITHM 1
+#define ABUP_FOTA_ALGORITHM 0
 #endif
 
+//lusun算法还原分配的RAM，注：不大于一个SECTOR
+#ifndef ABUP_RESTORE_RAM
+#define ABUP_RESTORE_RAM                   0x00000020
+#endif
 //wosun算法还原分配的RAM，可用RAM全部用于还原
+#ifndef ABUP_WORKING_BUFFER_LEN
 #define ABUP_WORKING_BUFFER_LEN                   0x1E000
+#endif
 
 //0低配莴笋算法，可用RAM小于512K开启 1高配莴笋算法，可用RAM大于512K开启
 #define ABUP_WOSUN_STREAM_TYPE 0
@@ -39,6 +45,39 @@
 //每次下载差分包大小、RAM小可以适当减小
 #ifndef PKG_USING_ABUP_FOTA
 #define ABUP_DEFAULT_SEGMENT_SIZE_INDEX		ABUP_SEGMENT_SIZE_128_INDEX
+//device
+//SECTOR/BLOCK 总数
+#define ABUP_SECTOR_MAX_NUM 0x00000100
+//SECTOR/BLOCK 大小
+#define ABUP_DEFAULT_SECTOR_SIZE 0x00000800
+//Flash基础地址
+#define ABUP_FLASH_BASE_ADDR 0x08000000
+//bootloader大小
+#define ABUP_BL_SIZE                   0x00010000
+//app大小
+#define ABUP_APP_SIZE                   0x40000
+//差分包信息存放地址
+#define ABUP_UPDATE_INFO_ADDR                   0x08050000
+//差分包存放地址
+#define ABUP_UPDATE_DELTA_ADDR                   0x08050800 
+//差分包大小，lusun算法包含差分包大小+断点续升所需参数保存空间
+#define ABUP_UPDATE_DELTA_SIZE                   0x2F800
+
+
+//OEM
+#define ADUPS_FOTA_SERVICE_OEM			"L452RE"
+//设备型号
+#define ADUPS_FOTA_SERVICE_MODEL "L452RE"
+//Product ID
+#define ADUPS_FOTA_SERVICE_PRODUCT_ID "1551332713"
+//Product Secret
+#define ADUPS_FOTA_SERVICE_PRODUCT_SEC "43d1d10afb934ec997f8a3ac2c2dde77"
+//设备类型
+#define ADUPS_FOTA_SERVICE_DEVICE_TYPE "box"
+//平台
+#define ADUPS_FOTA_SERVICE_PLATFORM "stm32l4"
+//版本号
+#define ABUP_FIRMWARE_VERSION  		"1.0"
 #endif
 //网络类型
 #define ABUP_NETWORK_TYPE			"NB"
@@ -97,7 +136,9 @@ typedef enum
 #define ABUP_PROTOCOL_HTTP 2
 #define ABUP_PROTOCOL_COAP_HTTP (ABUP_PROTOCOL_COAP|ABUP_PROTOCOL_HTTP)
 #if defined(PKG_USING_ABUP_FOTA)
+#if !defined(ABUP_DEFAULT_NETWORK_PROTOCOL)
 #define ABUP_DEFAULT_NETWORK_PROTOCOL ABUP_PROTOCOL_HTTP
+#endif
 #else
 #if defined(ABUP_MODULE_ESP8266_ENABLE)||defined(ABUP_MODULE_ESP07S_ENABLE)||defined(ABUP_MODULE_ME3630_ENABLE)||defined(ABUP_MODULE_SIM7600_ENABLE)
 #define ABUP_DEFAULT_HTTP_PROTOCOL ABUP_PROTOCOL_HTTP
