@@ -20,7 +20,7 @@ set size=0
 set lusun_ver=0
 set wosun_ver=0
 set app_ver=0
-set "abup=abup.bin"
+set abup=abup.bin
 set rtthread=rtthread.bin
 set fromelf=fromelf.exe
 
@@ -98,9 +98,9 @@ echo version=%version% >> adups_info.txt
 
 echo+%zip_patch%|findstr "7z.exe" 
 if %errorlevel% equ 0 (
-%zip_patch% a -tzip %version%_%d%_%t%.zip adups_info.txt %abup%
+%zip_patch% a -tzip %version%_%d%_%t%.zip adups_info.txt ./%abup%
 ) else (
-%zip_patch% a -ep1 -o+ -inul -r  -iback %version%_%d%_%t%.zip adups_info.txt %abup%
+%zip_patch% a -ep1 -o+ -inul  -iback %version%_%d%_%t%.zip adups_info.txt ./%abup%
 ) 
 del %abup% /s
 del adups_info.txt /s
