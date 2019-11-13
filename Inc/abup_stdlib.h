@@ -72,6 +72,7 @@ abup_extern abup_int abup_strcmp(const abup_char * string1, const abup_char * st
 abup_extern abup_char *abup_strcpy(abup_char * strDestination, const abup_char * strSource);
 abup_extern abup_char *abup_strncpy(abup_char *dst, const abup_char *src, abup_int n);
 abup_extern abup_char *abup_strstr(const abup_char * str, const abup_char * sub);
+abup_extern abup_char *abup_strstr1(const abup_char *s1,abup_int l1, const abup_char *s2);
 abup_extern abup_char *abup_strchr(const abup_char *s1, abup_int i);
 
 abup_extern abup_int abup_atoi(const abup_char *str);

@@ -9,6 +9,7 @@ if GetDepend(['PKG_USING_ABUP_FOTA']):
     src  = Glob('src/abup_config.c')
     src  += Glob('src/abup_hal_uart.c')
     src  += Glob('src/abup_hal.c')
+    src  += Glob('src/abup_hal_application.c')
     src  += Glob('src/abup_client.c')
     src  += Glob('src/abup_res.c')
 

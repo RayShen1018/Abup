@@ -63,6 +63,14 @@
 #endif
 
 
+typedef enum {
+	ABUP_FILETYPE_APP,
+	ABUP_FILETYPE_PATCH,
+	ABUP_FILETYPE_BACKUP,
+	ABUP_FILETYPE_PATCH_INFO,
+	ABUP_FILETYPE_END
+}ABUP_PEER_FILETYPE;
+
 #define ABUPSW32(x) ((((abup_uint32)(x)&(abup_uint32)0x000000ff) << 24 )\
 										|(((abup_uint32)(x)&(abup_uint32)0x0000ff00 ) << 8 )\
 										|(((abup_uint32)(x)&(abup_uint32)0x00ff0000 ) >> 8 )\
@@ -195,6 +203,7 @@ abup_uint8 abup_get_default_protocol(void);
 abup_uint8 abup_get_default_segment_size(void);
 abup_uint abup_get_data_max_len(void);
 abup_char* abup_get_buf(void);
+void abup_reset_buf(void);
 abup_uint abup_get_buf_len(void);
 extern abup_update_struct* abup_hal_get_update(void);
 extern abup_bool abup_hal_set_update(abup_update_struct *abup_update);

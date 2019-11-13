@@ -38,7 +38,7 @@ abup_char* abup_get_sdk_version(void)
 }
 abup_char* abup_get_apk_version(void)
 {
-#if defined(PKG_USING_ABUP_FOTA)
+#if defined(ABUP_RTTHREAD)
     return (abup_char*)ADUPS_FOTA_RTT_VERSION;
 #else
     return (abup_char*)ADUPS_FOTA_APP_VERSION;
@@ -105,7 +105,7 @@ abup_uint32 abup_get_default_baudrate(void)
 }
 abup_uint8 abup_get_default_protocol(void)
 {
-#if defined(PKG_USING_ABUP_FOTA)
+#if defined(ABUP_RTTHREAD)
     return (abup_uint8)1;
 #elif ((ABUP_DEFAULT_NETWORK_PROTOCOL == ABUP_PROTOCOL_COAP)||(ABUP_DEFAULT_NETWORK_PROTOCOL == ABUP_PROTOCOL_HTTP))
     return (abup_uint8)ABUP_DEFAULT_NETWORK_PROTOCOL;

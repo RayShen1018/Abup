@@ -311,10 +311,10 @@ abup_int8 abup_cv_callback(abup_int8* State,abup_int sock,struct sockaddr_in *ad
                     abup_uint16 block_size = abup_get_data_max_len();
                     abup_update_struct *abup_update = abup_hal_get_update();
                     download_uri_struct* abup_app_uri = abup_get_download_atp_uri();
-                    if(abup_app_uri->download_delta_size > abup_flash_get_delta_size())
+                    if(abup_app_uri->download_delta_size > abup_hal_get_delta_size())
                     {
                         abup_action_result = ABUP_RESULT_CV_FAIL;
-                        ABUP_INFO(ABUP_TAG,"download_delta_size = %d flash delta_size = %d!\r\n",abup_app_uri->download_delta_size,abup_flash_get_delta_size());
+                        ABUP_INFO(ABUP_TAG,"download_delta_size = %d flash delta_size = %d!\r\n",abup_app_uri->download_delta_size,abup_hal_get_delta_size());
                         *State = STATE_END;
                         break;
                     }
@@ -721,9 +721,7 @@ abup_int abup_init_update_result(void)
 //    ABUP_INFO(ABUP_TAG,"abup_task_buf:0x%x\r\n",testdata2[1]);
 
     abup_update_struct* abup_update = abup_hal_get_update();
-    if((abup_update->update_result == ABUP_UPDATE_SUCCESS)
-			||(abup_update->update_result == ABUP_UPDATE_AUTH_FAIL)
-			||(abup_update->update_result == ABUP_UPDATE_FAIL))
+    if((abup_update->update_result == ABUP_UPDATE_SUCCESS)||(abup_update->update_result == ABUP_UPDATE_FAIL))
     {   //检测是否需要上报升级结果
         AbupProgress(STATE_RU);
     }

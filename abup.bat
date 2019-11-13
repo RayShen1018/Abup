@@ -44,7 +44,7 @@ call:findstr2 ABUP_BL_SIZE %def_path% bl
 call:findstr2 ABUP_APP_SIZE %def_path% app
 call:findstr2 ABUP_USER_DATA_SIZE %def_path% user
 call:findstr2 ABUP_DEFAULT_SECTOR_SIZE %def_path% block
-call:findstr2 ABUP_UPDATE_DELTA_SIZE %def_path% size
+call:findstr2 ABUP_UPDATE_SIZE %def_path% size
 call:findstr2 ABUP_WOSUN_STREAM_TYPE %def_path% wosun
 	
 for  %%s in ( %def_path%) do (
@@ -73,6 +73,9 @@ set "addr1=00000000%addr1%"
 set "addr1=%addr1:~-8,8%"
 set /A size=size/1024
 set /A block=block/1024
+echo abup fota used size=%size%
+set /A size=size-2*block
+echo abup fota delta size=%size%
 	
 if "%algorithm%"=="0" (echo lusun) else (
 	if "%wosun%"=="0" (echo wosun bz) else (echo wosun lzma)

@@ -109,14 +109,19 @@ extern abup_bool ABUPCheckKey(void);
 extern abup_bool ABUPSaveKey(abup_uint8* pbuf, abup_int len);
 extern download_uri_struct* abup_get_download_atp_uri(void);
 extern void abup_hal_update_device(abup_uint8* mid,abup_int16 mid_len,abup_uint8* deviceId,abup_int16 deviceIdLen,abup_uint8* deviceSecret,abup_int16 deviceSecretLen);
-extern abup_int abup_hal_flash_read(abup_uint32 addr, abup_uint8 *buf, abup_uint size);
-extern abup_int abup_hal_flash_write(abup_uint32 addr, abup_uint8 *buf, abup_uint size);
-extern abup_int abup_hal_flash_erase(abup_uint32 addr, abup_uint size);
-extern abup_uint32 abup_flash_get_delta_addr(void);
+extern abup_int abup_hal_flash_read(abup_uint8 type,abup_uint32 addr, abup_uint8 *buf, abup_uint size);
+extern abup_int abup_hal_flash_write(abup_uint8 type,abup_uint32 addr, abup_uint8 *buf, abup_uint size);
+extern abup_int abup_hal_flash_erase(abup_uint8 type,abup_uint32 addr, abup_uint size);
+abup_uint32 abup_hal_get_blocksize(void);
+abup_uint32 abup_hal_get_info_addr(void);
+abup_uint32 abup_hal_get_backup_addr(void);
+abup_uint32 abup_hal_get_app_addr(void);
+abup_uint32 abup_hal_get_delta_addr(void);
+abup_uint32 abup_hal_get_delta_size(void);
 extern abup_uint8 *abup_get_hal_data(void);
 extern void abup_reset_hal_data(void);
 extern abup_uint abup_get_hal_data_len(void);
-extern abup_bool abup_hal_write_delta(abup_uint32 base_addr,abup_uint16 index,abup_uint8* data,abup_uint16 len);
+extern abup_bool abup_hal_write_delta(abup_uint16 index,abup_uint8* data,abup_uint16 len);
 
 extern void Abup_UartRecved(void);
 extern void abup_hal_app_msg(void* ptr);
@@ -126,7 +131,6 @@ extern void abup_hal_stop(void);
 void abup_display_update(abup_bool enable);
 extern abup_uint32 abup_get_download_index(void);
 extern abup_uint32 abup_get_download_index_max(void);
-extern abup_uint32 abup_flash_get_delta_size(void);
 extern abup_uint abup_md5_calc_result;
 extern abup_uint32 download_index;
 extern abup_uint32 download_index_max;
@@ -135,11 +139,6 @@ extern abup_uint8 abup_current_token_len;
 extern abup_int8 abup_get_conn_try_count(void);
 extern void abup_set_conn_try_count(abup_int8);
 extern abup_uint8* abup_get_str_ip(abup_uint8* ip);
-extern abup_bool abup_hal_erase_sector(abup_uint32 base_addr);
-extern abup_uint32 abup_flash_get_info_addr(void);
-extern abup_uint32 abup_flash_get_delta_addr(void);
-extern abup_uint32 abup_flash_get_delta_size(void);
-extern abup_uint32 abup_get_blocksize(void);
 #if defined(ABUP_BOOTLOADER)
 #else
 #if defined(ABUP_WIFI_SSID_PWD)
@@ -152,7 +151,7 @@ abup_bool abup_hal_para_url(abup_char *url,abup_uint16 url_len);
 abup_uint32* abup_get_host_port(void);
 abup_bool abup_hal_para_http(abup_uint8 *data,abup_http_parameter* tmp,abup_uint8 tmplen);
 abup_uint abup_MD5Calc_result(void);
-abup_int abup_MD5Calc(abup_uint addr, abup_uint buflen, abup_char *md5out);
+abup_int abup_MD5Calc(abup_uint buflen, abup_char *md5out);
 abup_int8 abup_hal_get_current_state(void);
 #endif
 abup_int abup_hal_get_key_version(void);
