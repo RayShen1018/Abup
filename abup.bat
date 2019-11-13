@@ -4,6 +4,7 @@ setlocal EnableDelayedExpansion
 set bin_patch=%1
 set zip_patch=%2
 set def_path=%3
+set build=%4
 set version=version
 set fota=IOT5.0_LUSUN11_R50426
 set algorithm=0
@@ -19,13 +20,19 @@ set size=0
 set lusun_ver=0
 set wosun_ver=0
 set app_ver=0
-set abup=abup.bin
+set "abup=abup.bin"
+set rtthread=rtthread.bin
 set fromelf=fromelf.exe
 
+if "%def_path%" == "rtconfig.h" (
+	copy %rtthread% %abup%
+) else (
 if not "x!bin_patch:%fromelf%=!"=="x%bin_patch%" (
 	%bin_patch% --bin -o %4\%abup% %4\%4.axf
 ) else (
     echo N
+)
+copy %4\%abup% %abup%
 )
 for /f "tokens=2 delims==" %%a in ('wmic path win32_operatingsystem get LocalDateTime /value') do (
   set datetime=%%a
@@ -91,12 +98,11 @@ echo version=%version% >> adups_info.txt
 
 echo+%zip_patch%|findstr "7z.exe" 
 if %errorlevel% equ 0 (
-copy %4\%abup% %abup%
 %zip_patch% a -tzip %version%_%d%_%t%.zip adups_info.txt %abup%
-del %abup% /s
 ) else (
-%zip_patch% a -ep1 -o+ -inul -r  -iback %version%_%d%_%t%.zip adups_info.txt %4\%abup%
+%zip_patch% a -ep1 -o+ -inul -r  -iback %version%_%d%_%t%.zip adups_info.txt %abup%
 ) 
+del %abup% /s
 del adups_info.txt /s
 echo complete
 GOTO:EOF
