@@ -21,26 +21,26 @@ Abup FOTA Downloader package 遵循 Apache2.0 许可，详见 `LICENSE` 文件�
 使用 Abup FOTA Downloader package 需要在 RT-Thread 的包管理器中选择它，具体路径如下：
 
 ```
-       --- abup_fota: The firmware downloader which using on Abup FOTA component 
-             Enable HTTP/CoAP FOTA (CoAP)  --->                                  
-             Recover algorithm (wosun)  --->                                     
-       [*]   Enable Abup FOTA Downloader debug                                   
-       (Abup) Data area name                                                     
-       (0x40) Flash minimum unit total                                           
-       (0x00000800) Flash minimum unit size                                      
-       (0x08000000) Flash start address                                          
-       (0x00004000) Bootloader size                                              
-       (0x10000) Application size                                                
-       (0x08014000) Differential information address                             
-       (0x08014800) Differential address                                         
-       (0xB800) Differential package size                                        
-       (G070RB) OEM                                                              
-       (G070RB) Device Name                                                      
-       (1562662709) Product ID                                                   
-       (d42a103a639f4b5d94d97c3bd7bc9ba5) Product Secret                         
-       (box) Device Type                                                         
-       (stm32l0) Platform                                                        
-       (1.0) firmware version                                                    
+       --- abup_fota: The firmware downloader which using on Abup FOTA component
+             Enable HTTP/CoAP FOTA (CoAP)  --->                                 
+             Recover algorithm (wosun)  --->                                    
+       [*]   Enable Abup FOTA Downloader debug                                  
+       (App) Application area name (NEW)                                        
+       (Abup) Data area name (NEW)                                              
+       (0x40) Flash minimum unit total (NEW)                                    
+       (0x00000800) Flash minimum unit size (NEW)                               
+       (0x08000000) Flash start address (NEW)                                   
+       (0x00004000) Bootloader size (NEW)                                       
+       (0x10000) Application size (NEW)                                         
+       (0x08014000) Abup partition address (NEW)                                
+       (0xC000) Abup partition size (NEW)                                       
+       (G070RB) OEM (NEW)                                                       
+       (G070RB) Device Name (NEW)                                               
+       (1562662709) Product ID (NEW)                                            
+       (d42a103a639f4b5d94d97c3bd7bc9ba5) Product Secret (NEW)                  
+       (box) Device Type (NEW)                                                  
+       (stm32l0) Platform (NEW)                                                 
+       (1.0) firmware version (NEW)                                             
              Version (latest)  --->
 ```
 
@@ -51,15 +51,15 @@ Abup FOTA Downloader package 遵循 Apache2.0 许可，详见 `LICENSE` 文件�
 | Enable HTTP/CoAP FOTA (CoAP) | 选择固件下载器使用HTTP/CoAP协议 |
 | Recover algorithm (wosun) | 做包信息配置还原算法wosun/lusun |
 | Enable Abup FOTA Downloader debug | 使能固件下载器 debug 模式 |
-| (Abup) Data area name | 下载分区名称 |
+| (App) Application area name | Application分区名称 |
+| (Abup) Data area name | Abup下载分区名称 |
 | (0x40) Flash minimum unit total              | flash最小单位总数 |
 | (0x00000800) Flash minimum unit size              | flash最小单位大小 |
 | (0x08000000) Flash start address                  | flash起始地址 |
 | (0x00004000) Bootloader size                      | bootloader大小 |
 | (0x10000) Application size                        | App大小 |
-| (0x08014000) Differential information address     | 差分包信息地址 |
-| (0x08014800) Differential address                 | 差分包地址 |
-| (0xB800) Differential package size                | 差分包大小 |
+| (0x08014800) Abup partition address                 | Abup下载分区地址 |
+| (0xC000) Abup partition size                | Abup下载分区大小 |
 | (G070RB) OEM                                      | OEM(艾拉比服务器上项目信息) |
 | (G070RB) Device Name                              | 设备型号(艾拉比服务器上项目信息) |
 | (1562662709) Product ID                           | Product ID(艾拉比服务器上项目信息) |
@@ -95,12 +95,13 @@ Abup FOTA Downloader package 遵循 Apache2.0 许可，详见 `LICENSE` 文件�
 ## 4、注意事项
 
  1. 确保 FAL 中有 Abup 分区。
- 2. 确保系统支持socket。
- 3. 确保bootloader支持艾拉比还原算法。
+ 2. 确保 FAL 中有 App 分区(bootloader里面用fal需要用到)。
+ 3. 确保系统支持socket。
+ 4. 确保bootloader支持艾拉比还原算法。
 
 ## 5、参考资料
 
-> 《RT-Thread OTA 用户手册》: docs/RT-Thread-OTA 用户手册.pdf
+> 《Abup FOTA 用户手册》: docs/Abup FOTA 用户手册.pdf
 
 ## 6、联系方式 & 感谢
 
